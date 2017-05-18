@@ -11,17 +11,16 @@ import org.jetbrains.ktor.http.*
 import org.jetbrains.ktor.netty.*
 import org.jetbrains.ktor.routing.*
 import java.util.*
+import kotlinx.html.stream.*
 
 val hikariConfig = HikariConfig().apply {
     jdbcUrl = System.getenv("JDBC_DATABASE_URL")
 }
 
-val dataSource = if (hikariConfig.jdbcUrl != null)
-    HikariDataSource(hikariConfig)
-else
-    HikariDataSource()
+val dataSource = if (hikariConfig.jdbcUrl != null) HikariDataSource(hikariConfig) else HikariDataSource()
 
-val html_utf8 = ContentType.Text.Html.withCharset(Charsets.UTF_8)
+
+val html_utf8: ContentType = ContentType.Text.Html.withCharset(Charsets.UTF_8)
 
 fun Application.module() {
     install(DefaultHeaders)
@@ -42,18 +41,24 @@ fun Application.module() {
         serveClasspathResources("public")
 
         get("hello") {
-            call.respond("Hello World")
+            call.respond("Hello World?")
         }
 
         get("error") {
             throw IllegalStateException("An invalid place to be …")
         }
 
-        get("/") {
-            val model = HashMap<String, Any>()
-            model.put("message", "Hello World!")
+        get("/index") {
+            val model = mapOf<String, Any>("message" to "Hello World!")
             val etag = model.toString().hashCode().toString()
             call.respond(FreeMarkerContent("index.ftl", model, etag, html_utf8))
+        }
+
+        get("/") {
+            call.respondWrite {
+                this.write("<!DOCTYPE html>\n")
+                appendHTML().frontPage()
+            }
         }
 
         get("/db") {
@@ -79,8 +84,9 @@ fun Application.module() {
 }
 
 fun main(args: Array<String>) {
-    val port = Integer.valueOf(System.getenv("PORT"))
-    embeddedServer(Netty, port, reloadPackages = listOf("heroku"), module = Application::module).start()
+    val port = System.getenv("PORT")?.toIntOrNull() ?: 5000
+    val server = embeddedServer(Netty, port, reloadPackages = listOf("supervisor-wiki", "wiki"), module = Application::module)
+    server.start()
 }
 
 

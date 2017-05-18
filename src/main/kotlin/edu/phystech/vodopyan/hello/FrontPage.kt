@@ -1,8 +1,6 @@
 package edu.phystech.vodopyan.hello
 
-import com.sun.tools.doclets.formats.html.markup.*
 import kotlinx.html.*
-import org.jetbrains.ktor.util.*
 import java.io.*
 
 fun TagConsumer<Writer>.frontPage(): Writer =

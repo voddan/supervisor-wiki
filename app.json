@@ -1,0 +1,6 @@
+{
+  "name": "supervisor-wiki",
+  "description": "A wiki for MIPT scientific supervisors",
+  "image": "heroku/java",
+  "addons": [ "heroku-postgresql" ]
+}

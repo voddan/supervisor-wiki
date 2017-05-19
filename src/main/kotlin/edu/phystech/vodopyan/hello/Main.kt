@@ -12,6 +12,9 @@ import org.jetbrains.ktor.netty.*
 import org.jetbrains.ktor.routing.*
 import java.util.*
 import kotlinx.html.stream.*
+import org.jetbrains.ktor.response.*
+
+val DEBUG = if(true) System.currentTimeMillis().toString() else ""
 
 val hikariConfig = HikariConfig().apply {
     jdbcUrl = System.getenv("JDBC_DATABASE_URL")
@@ -33,12 +36,36 @@ fun Application.module() {
 
     install(StatusPages) {
         exception<Exception> { exception ->
-            call.respond(FreeMarkerContent("error.ftl", exception, "", html_utf8))
+            call.respond(FreeMarkerContent("example/error.ftl", exception, "", html_utf8))
         }
     }
 
     install(Routing) {
         serveClasspathResources("public")
+
+        get("/") {
+            call.respondRedirect("/departments")
+            val model = mapOf<String, Any>()
+            call.respondFreeMarker("test.ftl")
+        }
+
+        get("/departments") {
+            call.respondFreeMarker("departments.ftl")
+        }
+
+        route("/like") {
+            get("/kotlinorg") {
+                call.respondFreeMarker("example/kotlinorg.ftl")
+            }
+
+            get("flexbox") {
+                call.respondFreeMarker("example/flexbox.ftl")
+            }
+
+            get("/heroku-example") {
+                call.respondFreeMarker("example/herokuexample.ftl")
+            }
+        }
 
         get("hello") {
             call.respond("Hello World?")
@@ -49,16 +76,7 @@ fun Application.module() {
         }
 
         get("/index") {
-            val model = mapOf<String, Any>("message" to "Hello World!")
-            val etag = model.toString().hashCode().toString()
-            call.respond(FreeMarkerContent("index.ftl", model, etag, html_utf8))
-        }
-
-        get("/") {
-            call.respondWrite {
-                this.write("<!DOCTYPE html>\n")
-                appendHTML().frontPage()
-            }
+            call.respondFreeMarker("example/index.ftl")
         }
 
         get("/db") {
@@ -78,14 +96,17 @@ fun Application.module() {
             }
 
             val etag = model.toString().hashCode().toString()
-            call.respond(FreeMarkerContent("db.ftl", model, etag, html_utf8))
+            call.respond(FreeMarkerContent("example/db.ftl", model, etag, html_utf8))
         }
     }
 }
 
+suspend fun ApplicationCall.respondFreeMarker(ftl: String, model: Any = mapOf<String, Any>())
+        = respond(FreeMarkerContent(ftl, model, (ftl + model.toString() + DEBUG).hashCode().toString(), html_utf8))
+
 fun main(args: Array<String>) {
     val port = System.getenv("PORT")?.toIntOrNull() ?: 5000
-    val server = embeddedServer(Netty, port, reloadPackages = listOf("supervisor-wiki", "wiki"), module = Application::module)
+    val server = embeddedServer(Netty, port, reloadPackages = listOf("supervisor-wiki"), module = Application::module)
     server.start()
 }
 

@@ -49,8 +49,8 @@ fun Application.module() {
             call.respondFreeMarker("test.ftl")
         }
 
-        get("/departments") {
-            call.respondFreeMarker("departments.ftl")
+        get("/laboratories") {
+            call.respondFreeMarker("laboratories.ftl")
         }
 
         route("/like") {
@@ -103,6 +103,9 @@ fun Application.module() {
 
 suspend fun ApplicationCall.respondFreeMarker(ftl: String, model: Any = mapOf<String, Any>())
         = respond(FreeMarkerContent(ftl, model, (ftl + model.toString() + DEBUG).hashCode().toString(), html_utf8))
+
+
+
 
 fun main(args: Array<String>) {
     val port = System.getenv("PORT")?.toIntOrNull() ?: 5000

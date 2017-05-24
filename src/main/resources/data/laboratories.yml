@@ -1,0 +1,29 @@
+- lab:
+    name: "Теоретическая и прикладная информатика"
+    subjects: Информатика
+    departments: [ФРТК, ФУПМ]
+    organisations: [Parallels, Acronis, Runa Capital]
+
+- lab:
+    name: "Интеллектуальные системы"
+    subjects: [Математика, Информатика]
+    departments: ФУПМ
+    organisations: ВЦ РАН
+    wikipimt: http://wikimipt.org/wiki/%D0%9A%D0%B0%D1%84%D0%B5%D0%B4%D1%80%D0%B0_%C2%AB%D0%98%D0%BD%D1%82%D0%B5%D0%BB%D0%BB%D0%B5%D0%BA%D1%82%D1%83%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5_%D1%81%D0%B8%D1%81%D1%82%D0%B5%D0%BC%D1%8B%C2%BB
+
+- lab:
+    name: "Нелинейные процессы"
+    subjects: [Математика, physics]
+    departments: ФУПМ
+    organisations: ВЦ РАН
+
+- lab:
+    name: "Кафедра информатики"
+    subjects: Информатика
+    departments: ФУПМ
+    organisations: МФТИ
+    wikimipt: http://wikimipt.org/wiki/%D0%9A%D0%B0%D1%84%D0%B5%D0%B4%D1%80%D0%B0_%D0%B8%D0%BD%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%82%D0%B8%D0%BA%D0%B8
+
+
+
+

@@ -57,9 +57,34 @@ fun Application.module() {
                 call.respondFreeMarker("supervisors.ftl", model)
             }
 
+            get("/comment") {
+                call.respond("Hello World?")
+
+                println(call.request)
+                println(call.attributes)
+                println(call.parameters)
+            }
+
             for(sup in Data.supervisorsList) {
-                get("/${sup.webname}") {
-                    call.respondFreeMarker("supervisor.ftl", sup)
+                route("/${sup.webname}") {
+
+                    get {
+                        call.respondFreeMarker("supervisor.ftl", sup)
+                    }
+
+//                    post("/comment") {
+//                        println(call.request)
+//                        println(call.attributes)
+//                        println(call.parameters)
+//                    }
+
+                    get("/comment") {
+                        call.respond("Спасибо за ваш комментарий!")
+
+                        val comment = call.parameters["comment"]!!
+
+                        DB.sendComment(sup.webname, comment)
+                    }
                 }
             }
         }

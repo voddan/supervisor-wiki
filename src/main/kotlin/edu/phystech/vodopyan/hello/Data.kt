@@ -92,6 +92,8 @@ data class Supervisor(
         val photo: URL?) {
 
     val webname: String = name.toLowerCase().map { ch -> transliteration[ch] ?: ch  }.joinToString(separator = "")
+
+    val comments = DB.getComments(webname)
 }
 
 

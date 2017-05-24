@@ -36,33 +36,28 @@
 </div>
 
 <div class="container">
-
-
     <div>
         <h4>Оставить комментарий</h4>
-        <form action="/comment" method="post">
+        <form action="/supervisors/${webname}/comment" method="get">
             <textarea name="comment" cols="80" rows="10"></textarea>
             <input type="submit" value="Отправить">
         </form>
     </div>
+</div>
 
 
+<div class="container">
+    <ul>
+        <#list comments as comment>
+            <li>
+                <div class="container">
+                    ${comment}
+                </div>
+            </li>
+        </#list>
+    </ul>
 </div>
 
 
 </body>
 </html>
-
-<#--
-ФРТК
-ФОПФ
-ФАКИ
-ФМХФ
-ФФКЭ
-ФАЛТ
-ФУПМ
-ФПФЭ
-ФИВТ
-ФБМФ
-ФНБИК
--->

@@ -44,13 +44,24 @@ fun Application.module() {
         serveClasspathResources("public")
 
         get("/") {
-            call.respondRedirect("/departments")
-            val model = mapOf<String, Any>()
-            call.respondFreeMarker("test.ftl")
+            call.respondRedirect("/supervisors")
         }
 
         get("/laboratories") {
             call.respondFreeMarker("laboratories.ftl")
+        }
+
+        route("/supervisors") {
+            get("/") {
+                val model = Data
+                call.respondFreeMarker("supervisors.ftl", model)
+            }
+
+            for(sup in Data.supervisorsList) {
+                get("/${sup.webname}") {
+                    call.respondFreeMarker("supervisor.ftl", sup)
+                }
+            }
         }
 
         route("/like") {
@@ -67,36 +78,38 @@ fun Application.module() {
             }
         }
 
-        get("hello") {
-            call.respond("Hello World?")
-        }
-
-        get("error") {
-            throw IllegalStateException("An invalid place to be …")
-        }
-
-        get("/index") {
-            call.respondFreeMarker("example/index.ftl")
-        }
-
-        get("/db") {
-            val model = HashMap<String, Any>()
-            dataSource.connection.use { connection ->
-                val rs = connection.createStatement().run {
-                    executeUpdate("CREATE TABLE IF NOT EXISTS ticks (tick timestamp)")
-                    executeUpdate("INSERT INTO ticks VALUES (now())")
-                    executeQuery("SELECT tick FROM ticks")
-                }
-
-                val output = ArrayList<String>()
-                while (rs.next()) {
-                    output.add("Read from DB: " + rs.getTimestamp("tick"))
-                }
-                model.put("results", output)
+        route("/example") {
+            get("hello") {
+                call.respond("Hello World?")
             }
 
-            val etag = model.toString().hashCode().toString()
-            call.respond(FreeMarkerContent("example/db.ftl", model, etag, html_utf8))
+            get("error") {
+                throw IllegalStateException("An invalid place to be …")
+            }
+
+            get("/index") {
+                call.respondFreeMarker("example/index.ftl")
+            }
+
+            get("/db") {
+                val model = HashMap<String, Any>()
+                dataSource.connection.use { connection ->
+                    val rs = connection.createStatement().run {
+                        executeUpdate("CREATE TABLE IF NOT EXISTS ticks (tick timestamp)")
+                        executeUpdate("INSERT INTO ticks VALUES (now())")
+                        executeQuery("SELECT tick FROM ticks")
+                    }
+
+                    val output = ArrayList<String>()
+                    while (rs.next()) {
+                        output.add("Read from DB: " + rs.getTimestamp("tick"))
+                    }
+                    model.put("results", output)
+                }
+
+                val etag = model.toString().hashCode().toString()
+                call.respond(FreeMarkerContent("example/db.ftl", model, etag, html_utf8))
+            }
         }
     }
 }

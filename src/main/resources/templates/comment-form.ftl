@@ -22,44 +22,46 @@
           Имя:<br>
         <input type="text" class="form-control" placeholder="Имя">
         Текущий курс обучения:<br>
-        <div class="btn-group">
-          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Введите год обучения <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu">
-            <li><a href="#">1 год бакалавр</a></li>
-            <li><a href="#">2 год бакалавр</a></li>
-            <li><a href="#">3 год бакалавр</a></li>
-            <li><a href="#">4 год бакалавр</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Выпускник бакалавриата</a></li>
-            <li><a href="#">1 год магистр</a></li>
-            <li><a href="#">2 год магистр</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Выпускник магистратуры</a></li>
-            <li><a href="#">1 год аспирант</a></li>
-            <li><a href="#">2 год аспирант</a></li>
-            <li><a href="#">3 год аспирант</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Выпускник аспирантуры</a></li>
-          </ul>
-        </div>
-        <!--<select name="year">-->
-          <!--<option value="Введите год обучения">Введите год обучения</option>-->
-          <!--<option value="1 год бакалавр">1 год бакалавр</option>-->
-          <!--<option value="2 год бакалавр">2 год бакалавр</option>-->
-          <!--<option value="3 год бакалавр">3 год бакалавр</option>-->
-          <!--<option value="4 год бакалавр">4 год бакалавр</option>-->
-          <!--<option value="Выпускник бакалавриата">Выпускник бакалавриата</option>-->
-          <!--<option value="1 год магистр">1 год магистр</option>-->
-          <!--<option value="2 год магистр">2 год магистр</option>-->
-          <!--<option value="Выпускник магистратуры">Выпускник магистратуры</option>-->
-          <!--<option value="1 год аспирант">1 год аспирант</option>-->
-          <!--<option value="2 год аспирант">2 год аспирант</option>-->
-          <!--<option value="3 год аспирант">3 год аспирант</option>-->
-          <!--<option value="Выпускник аспирантуры">Выпускник аспирантуры</option>-->
-        <!--</select>-->
+        <!--<div class="btn-group">-->
+          <!--<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+            <!--Введите год обучения <span class="caret"></span>-->
+          <!--</button>-->
+          <!--<ul class="dropdown-menu">-->
+            <!--<li><a href="#">1 год бакалавр</a></li>-->
+            <!--<li><a href="#">2 год бакалавр</a></li>-->
+            <!--<li><a href="#">3 год бакалавр</a></li>-->
+            <!--<li><a href="#">4 год бакалавр</a></li>-->
+            <!--<li role="separator" class="divider"></li>-->
+            <!--<li><a href="#">Выпускник бакалавриата</a></li>-->
+            <!--<li><a href="#">1 год магистр</a></li>-->
+            <!--<li><a href="#">2 год магистр</a></li>-->
+            <!--<li role="separator" class="divider"></li>-->
+            <!--<li><a href="#">Выпускник магистратуры</a></li>-->
+            <!--<li><a href="#">1 год аспирант</a></li>-->
+            <!--<li><a href="#">2 год аспирант</a></li>-->
+            <!--<li><a href="#">3 год аспирант</a></li>-->
+            <!--<li role="separator" class="divider"></li>-->
+            <!--<li><a href="#">Выпускник аспирантуры</a></li>-->
+          <!--</ul>-->
+        <!--</div>-->
+        <select name="year">
+          <option value="Введите год обучения">Введите год обучения</option>
+          <option value="1 год бакалавр">1 год бакалавр</option>
+          <option value="2 год бакалавр">2 год бакалавр</option>
+          <option value="3 год бакалавр">3 год бакалавр</option>
+          <option value="4 год бакалавр">4 год бакалавр</option>
+          <option value="Выпускник бакалавриата">Выпускник бакалавриата</option>
+          <option value="1 год магистр">1 год магистр</option>
+          <option value="2 год магистр">2 год магистр</option>
+          <option value="Выпускник магистратуры">Выпускник магистратуры</option>
+          <option value="1 год аспирант">1 год аспирант</option>
+          <option value="2 год аспирант">2 год аспирант</option>
+          <option value="3 год аспирант">3 год аспирант</option>
+          <option value="Выпускник аспирантуры">Выпускник аспирантуры</option>
+        </select>
         <br>
+        Ваша базовая кафедра (специализация) на момент работы с научным руководителем:<br>
+        <input type="text" class="form-control" placeholder="ChairName">
         Средний балл зачетки/диплома (из 10):<br>
         <input type="number" name="studname" value="" step=0.1><br>
         VK:<br>
@@ -94,8 +96,6 @@
 
       <fieldset>
         <legend>Отзыв</legend>
-        Ваша базовая кафедра (специализация) на момент работы с научным руководителем:<br>
-        <input type="text" class="form-control" placeholder="ChairName">
         Области науки, в которых данный ученй специализируется:<br>
         <input type="text" class="form-control" placeholder="Math&Physics">
         Тема Вашей работы с данным научным руководителем:<br>

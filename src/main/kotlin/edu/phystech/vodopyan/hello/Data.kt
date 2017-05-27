@@ -190,7 +190,7 @@ object Data {
                     URL("https://professorrating.org/professor.php?id=65249"),
                     URL("https://delmarva.streetlightoutages.com/common/images/organizations/_default/unavailablePhoto.png")),
 
-            Supervisor(6,
+            Supervisor(7,
                     "Матвеев", "Иван", "Алексеевич",
                     listOf(laboratories["Интеллектуальные системы"]!!),
                     URL("http://www.machinelearning.ru/wiki/index.php?title=%D0%A3%D1%87%D0%B0%D1%81%D1%82%D0%BD%D0%B8%D0%BA:IvanMatveev"),

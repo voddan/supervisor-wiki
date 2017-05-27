@@ -35,7 +35,7 @@
     </p>
 </div>
 
-<div class="container">
+<#--<div class="container">
     <div>
         <h4>Оставить комментарий</h4>
         <form action="/supervisors/${webname}/comment" method="get">
@@ -43,6 +43,10 @@
             <input type="submit" value="Отправить">
         </form>
     </div>
+</div>-->
+
+<div class="container">
+    <a href="/supervisors/${webname}/comment-form"><h2>Оставить комментарий</h2></a>
 </div>
 
 

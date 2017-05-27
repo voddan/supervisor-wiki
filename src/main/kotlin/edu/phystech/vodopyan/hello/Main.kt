@@ -20,6 +20,8 @@ import java.util.concurrent.*
 val DEBUG = if(true) System.currentTimeMillis().toString() else ""
 
 val hikariConfig = HikariConfig().apply {
+    maximumPoolSize = 1
+
     jdbcUrl = System.getenv("JDBC_DATABASE_URL")
             ?: "jdbc:postgresql://ec2-54-247-166-129.eu-west-1.compute.amazonaws.com:5432/d96f3be7mjlgtt?user=hznkucudptrpco&password=323a4ff95e2cdcd2a401d882fc96ce1d4fb634f211770d3524b38b569d9f706d&sslmode=require"
 }
@@ -66,15 +68,13 @@ fun Application.module() {
                 route("/${sup.webname}") {
 
                     get {
-                        dataSource.connection.use { connection ->
-                            val rs = connection.createStatement().run {
-                                executeQuery("SELECT * FROM comments WHERE supervisor_id = ${sup.id};")
-                            }
+                        val comments = mutableListOf<Comment>()
 
-                            val output = mutableListOf<Comment>()
+                        dataSource.connection.use { connection ->
+                            val rs = connection.createStatement()
+                                    .executeQuery("SELECT * FROM comments WHERE supervisor_id = ${sup.id};")
 
                             while (rs.next()) {
-
                                 val com = Comment(rs.getInt("id"), rs.getInt("supervisor_id"),
                                         rs.getStr("supervisor_name"), rs.getStr("supervisor_surname"), rs.getStr("supervisor_fathersname"),
                                         rs.getStr("basechair"), rs.getStr("areas"), rs.getStr("topic"),
@@ -84,37 +84,23 @@ fun Application.module() {
                                         rs.getStr("vk"), rs.getStr("email"), rs.getStr("other_contacts"),
                                         rs.getStr("years"), rs.getInt("bachelor"), rs.getInt("master"), rs.getInt("phd")
                                 )
-
-                                output.add(com)
+                                comments.add(com)
                             }
-
-
-                            data class Model(val sup: Supervisor, val comments: List<Comment>)
-
-                            val model = Model(sup, output)
-
-                            call.respondFreeMarker("supervisor.ftl", model)
                         }
+
+
+                        data class Model(val sup: Supervisor, val comments: List<Comment>)
+
+                        call.respondFreeMarker("supervisor.ftl", Model(sup, comments))
                     }
 
-//                    post("/comment") {
-//                        println(call.request)
-//                        println(call.attributes)
-//                        println(call.parameters)
-//                    }
 
                     get("/comment-form") {
                         call.respondFreeMarker("comment-form.ftl", model = sup)
                     }
 
                     get("/send-comment") {
-//                        call.respondFreeMarker("after-comment.ftl", model = sup)
-
                         val form = call.parameters
-//                        val comment = call.parameters["comment"]!!
-
-                        println(form)
-
 
                         /*
                         * id, supervisor_id,
@@ -125,16 +111,6 @@ fun Application.module() {
                         * studname, studsurname, current_degree, grade,
                         * vk, email,
                         * other_contacts, years, bachelor, master, phd*/
-
-
-                        /*
-                        * [studsurname=[1], studname=[1], current_degree=[Введите год обучения],
-                        * basechair=[1], grade=[1], vk=[1], email=[1], other_contacts=[1],
-                        * supervisor_surname=[1], supervisor_name=[],
-                        * supervisor_fathersname=[], bachelor=[Бакалавриат], phd=[Аспирантура],
-                        * keep_contact=[yes,sure], years=[1], areas=[1], topic=[1], motivation=[1],
-                        * timing=[1], school=[1], promotion=[1], networking=[1], other=[1]]
-                        */
 
                         val current_degree = form["current_degree"].let { if(it == "Введите год обучения") "" else it }
 
@@ -156,32 +132,21 @@ fun Application.module() {
                                 executeQuery("SELECT * FROM comments order by id DESC limit 1;")
                             }
 
+                            if(!rs.next()) println("ERROR: no last comment")
 
-                            val output = mutableListOf<Comment>()
-
-                            while (rs.next()) {
-
-                                val com = Comment(rs.getInt("id"), rs.getInt("supervisor_id"),
-                                        rs.getStr("supervisor_name"), rs.getStr("supervisor_surname"), rs.getStr("supervisor_fathersname"),
-                                        rs.getStr("basechair"), rs.getStr("areas"), rs.getStr("topic"),
-                                        rs.getStr("motivation"), rs.getStr("timing"), rs.getStr("school"),
-                                        rs.getStr("promotion"), rs.getStr("networking"), rs.getStr("other"),
-                                        rs.getStr("studname"), rs.getStr("studsurname"), rs.getStr("current_degree"), rs.getStr("grade"),
-                                        rs.getStr("vk"), rs.getStr("email"), rs.getStr("other_contacts"),
-                                        rs.getStr("years"), rs.getInt("bachelor"), rs.getInt("master"), rs.getInt("phd")
-                                )
-
-                                output.add(com)
-                            }
-
-                            println("SQL OUTPUT")
-                            println(output.joinToString(separator = "\n"))
+                            val comment = Comment(rs.getInt("id"), rs.getInt("supervisor_id"),
+                                    rs.getStr("supervisor_name"), rs.getStr("supervisor_surname"), rs.getStr("supervisor_fathersname"),
+                                    rs.getStr("basechair"), rs.getStr("areas"), rs.getStr("topic"),
+                                    rs.getStr("motivation"), rs.getStr("timing"), rs.getStr("school"),
+                                    rs.getStr("promotion"), rs.getStr("networking"), rs.getStr("other"),
+                                    rs.getStr("studname"), rs.getStr("studsurname"), rs.getStr("current_degree"), rs.getStr("grade"),
+                                    rs.getStr("vk"), rs.getStr("email"), rs.getStr("other_contacts"),
+                                    rs.getStr("years"), rs.getInt("bachelor"), rs.getInt("master"), rs.getInt("phd")
+                            )
 
                             data class Model(val sup: Supervisor, val com: Comment)
 
-                            val model = Model(sup, output.first())
-
-                            call.respondFreeMarker("after-comment.ftl", model)
+                            call.respondFreeMarker("after-comment.ftl", Model(sup, comment))
                         }
 
                     }

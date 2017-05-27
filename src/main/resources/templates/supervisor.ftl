@@ -18,7 +18,7 @@
     <h1>${sup.name}</h1>
 </#if>
 
-<#if photo??>
+<#if sup.photo??>
     <img src="${sup.photo}" alt="${sup.name}" width="266" height="332">
 </#if>
 

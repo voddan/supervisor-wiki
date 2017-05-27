@@ -119,7 +119,8 @@ object Data {
     val organisationsList = listOf(
             Organisation("ВЦ РАН", URL("http://wikimipt.org/wiki/%D0%92%D1%8B%D1%87%D0%B8%D1%81%D0%BB%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9_%D0%A6%D0%B5%D0%BD%D1%82%D1%80_%D0%B8%D0%BC._%D0%90._%D0%90._%D0%94%D0%BE%D1%80%D0%BE%D0%B4%D0%BD%D0%B8%D1%86%D1%8B%D0%BD%D0%B0_%D0%A0%D0%90%D0%9D")),
             Organisation("ИППИ", URL("http://iitp.ru/ru/about")),
-            Organisation("Parallels", URL("https://mipt.ru/education/chairs/theor_app_informatics/"))
+            Organisation("Parallels", URL("https://mipt.ru/education/chairs/theor_app_informatics/")),
+            Organisation("ФГУП «ГосНИИАС»", URL("https://www.gosniias.ru/"))
     )
 
     val organisations = organisationsList.associateBy { it.name }
@@ -136,7 +137,11 @@ object Data {
 
             Laboratory("Теоретическая и прикладная информатика",
                     listOf(Subject.info), listOf(Department.fupm), listOf(organisations["Parallels"]!!),
-                    URL("https://mipt.ru/dcam/basechairs/parallels.php"))
+                    URL("https://mipt.ru/dcam/basechairs/parallels.php")),
+
+            Laboratory("Управляющих и операционных систем",
+                    listOf(Subject.math, Subject.info), listOf(Department.fupm), listOf(organisations["ФГУП «ГосНИИАС»"]!!),
+                    URL("https://mipt.ru/education/chairs/control_inf_systems/"))
     )
 
     val laboratories = laboratoriesList.associateBy { it.name }
@@ -177,7 +182,13 @@ object Data {
                     "Максимов", "Юрий", "Владимирович",
                     listOf(laboratories["Кафедра проблем передачи информации и анализа данных"]!!),
                     URL("http://faculty.skoltech.ru/people/yurymaximov"),
-                    URL("http://www.skoltech.ru/app/data/uploads/sites/19/2016/07/yurymaximov_avatar_1467559189.jpg"))
+                    URL("http://www.skoltech.ru/app/data/uploads/sites/19/2016/07/yurymaximov_avatar_1467559189.jpg")),
+
+            Supervisor(6,
+                    "Вишнякова", "Лариса", "Владимировна",
+                    listOf(laboratories["Управляющих и операционных систем"]!!),
+                    URL("https://professorrating.org/professor.php?id=65249"),
+                    URL("https://delmarva.streetlightoutages.com/common/images/organizations/_default/unavailablePhoto.png"))
     )
 
     val supervisors = supervisorsList.associateBy { it.name }

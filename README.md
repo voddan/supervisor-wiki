@@ -1,6 +1,8 @@
-# supervisor-wiki
+# [supervisor-wiki](http://supervisor-wiki.herokuapp.com/)
 
 A wiki for MIPT scientific supervisors
+
+The site is hosted on Heroku http://supervisor-wiki.herokuapp.com/
 
 ## Technicalities
 

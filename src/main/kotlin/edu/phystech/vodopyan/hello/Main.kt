@@ -9,13 +9,11 @@ import org.jetbrains.ktor.freemarker.*
 import org.jetbrains.ktor.host.*
 import org.jetbrains.ktor.http.*
 import org.jetbrains.ktor.netty.*
-import org.jetbrains.ktor.routing.*
-import java.util.*
-import kotlinx.html.stream.*
 import org.jetbrains.ktor.response.*
-import org.jetbrains.ktor.client.*
+import org.jetbrains.ktor.routing.*
+import org.jetbrains.ktor.util.*
 import java.sql.*
-import java.util.concurrent.*
+import java.util.*
 
 val DEBUG = if(true) System.currentTimeMillis().toString() else ""
 
@@ -100,7 +98,14 @@ fun Application.module() {
                     }
 
                     get("/send-comment") {
-                        val form = call.parameters
+                        val map: Map<String, String> = call.parameters.toMap().mapValues { it.value.firstOrNull() ?: "" }
+
+                        val form = map.mapValues { entry ->
+                            entry.value.let {
+                                str ->
+                                str.replace("'", "`")
+                            }
+                        }
 
                         /*
                         * id, supervisor_id,

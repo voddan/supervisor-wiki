@@ -10,7 +10,7 @@
 
 <#include "nav.ftl">
 
-<div class="container">
+<div class="container background-mipt">
     <h1>Научные руководители</h1>
     <ul>
         <#list supervisorsList as sup>

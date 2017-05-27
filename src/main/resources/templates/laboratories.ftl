@@ -17,9 +17,9 @@
             <h4>ФУПМ</h4>
         </a>
 
-        <div id="collapseOne" class="collapse">
+        <div id="collapseOne" <#--class="collapse"-->>
             <ul>
-                <li> <h4>Матенматическая физика</h4>
+                <li> <h4>Математическая физика</h4>
                     <ul>
                         <li>Нелинейные процессы (ВЦ РАН)</li>
                         <li>Прикладная математика (ИПМ РАН)</li>
@@ -63,7 +63,7 @@
             <h4>ФПФЭ</h4>
         </a>
 
-        <div id="collapse2" class="collapse">
+        <div id="collapse2" <#--class="collapse"-->>
             <ul>
                 <li>Проблемы инерционного термоядерного синтеза</li>
                 <li>Космическая физика</li>

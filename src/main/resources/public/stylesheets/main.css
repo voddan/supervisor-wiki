@@ -38,3 +38,17 @@
     max-width: 100%;
 }
 
+.img {
+    max-width: 100%;
+    max-height: 100vh;
+    height: auto;
+}
+
+.background-mipt{
+    width:100%;
+    height:auto;
+    background: url('https://magistr.mipt.ru/images/magistr0header.jpg?crc=3838997046') no-repeat center;
+    background-position: 50% 50%;
+    background-size: 100%;
+    overflow:hidden;
+}

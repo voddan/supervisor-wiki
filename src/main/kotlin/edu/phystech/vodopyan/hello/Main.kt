@@ -112,7 +112,9 @@ fun Application.module() {
                         * vk, email,
                         * other_contacts, years, bachelor, master, phd*/
 
-                        val current_degree = form["current_degree"].let { if(it == "Введите год обучения") "" else it }
+                        val current_degree = form["current_degree"]!!
+                                .let { if(it == "Введите год обучения") "" else it }
+                                .toLowerCase()
 
                         dataSource.connection.use { connection ->
                             val rs = connection.createStatement().run {

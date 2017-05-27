@@ -13,6 +13,9 @@ import org.jetbrains.ktor.routing.*
 import java.util.*
 import kotlinx.html.stream.*
 import org.jetbrains.ktor.response.*
+import org.jetbrains.ktor.auth.*
+import org.jetbrains.ktor.client.*
+import java.util.concurrent.*
 
 val DEBUG = if(true) System.currentTimeMillis().toString() else ""
 
@@ -34,11 +37,11 @@ fun Application.module() {
         templateLoader = ClassTemplateLoader(environment.classLoader, "templates")
     }
 
-    install(StatusPages) {
+/*    install(StatusPages) {
         exception<Exception> { exception ->
             call.respond(FreeMarkerContent("example/error.ftl", exception, "", html_utf8))
         }
-    }
+    }*/
 
     install(Routing) {
         serveClasspathResources("public")
@@ -46,6 +49,7 @@ fun Application.module() {
         get("/") {
             call.respondRedirect("/supervisors")
         }
+
 
         get("/laboratories") {
             call.respondFreeMarker("laboratories.ftl")
@@ -55,14 +59,6 @@ fun Application.module() {
             get("/") {
                 val model = Data
                 call.respondFreeMarker("supervisors.ftl", model)
-            }
-
-            get("/comment") {
-                call.respond("Hello World?")
-
-                println(call.request)
-                println(call.attributes)
-                println(call.parameters)
             }
 
             for(sup in Data.supervisorsList) {
@@ -78,12 +74,44 @@ fun Application.module() {
 //                        println(call.parameters)
 //                    }
 
-                    get("/comment") {
+                    get("/comment-form") {
+                        call.respondFreeMarker("comment-form.ftl", model = sup)
+                    }
+
+                    get("/send-comment") {
                         call.respond("Спасибо за ваш комментарий!")
 
-                        val comment = call.parameters["comment"]!!
+//                        val comment = call.parameters["comment"]!!
 
-                        DB.sendComment(sup.webname, comment)
+
+                        val model = HashMap<String, Any>()
+
+                        dataSource.connection.use { connection ->
+                            val rs = connection.createStatement().run {
+                                executeUpdate("""INSERT INTO comments
+                                                VALUES(${sup.id},
+                                                '${sup.familyName}', '${sup.givenName}', '${sup.middleName}',
+                                                'ИАД', 'art_intel', 'topicmap',
+                                                'он кулл', 'не очень много но хватает', 'дофига всего',
+                                                'задвигает телеги', 'его знают все', 'none',
+                                                'Игорь', 'Молибог', 'Бакалавр', '9,2',
+                                                'vk.com/igormolybog', 'igormolybog@gmail.com',
+                                                'telegram', '2015-2017', 0, 0, 0);""")
+
+                                executeQuery("SELECT tick FROM ticks")
+                            }
+
+                            val output = ArrayList<String>()
+                            while (rs.next()) {
+                                output.add("Read from DB: " + rs.getTimestamp("tick"))
+                            }
+                            model.put("results", output)
+                        }
+
+                        val etag = model.toString().hashCode().toString()
+                        call.respond(FreeMarkerContent("example/db.ftl", model, etag, html_utf8))
+
+
                     }
                 }
             }

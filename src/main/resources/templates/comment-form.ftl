@@ -12,7 +12,11 @@
 
 
   <div class="container">
-    <form action="/action_page.php">
+    <form action="/supervisors/${webname}/send-comment" method="get">
+
+
+
+
       <fieldset>
         <legend>Информация о студенте</legend>
         <div>
@@ -72,23 +76,23 @@
 
 
       <fieldset>
-        <legend>Информация о преподавателе</legend>
-        Фамилия:<br>
-        <input type="text" class="form-control" placeholder="Фамилия">
-        Имя:<br>
-        <input type="text" class="form-control" placeholder="Имя">
-        Отчество:<br>
-        <input type="text" class="form-control" placeholder="Отчество">
-        Период времени, который данный преподаватель был Вашим научным руководителем:<br>
-        <input type="checkbox" name="Бакалавриат" value="Бакалавриат"> Бакалавриат<br>
-        <input type="checkbox" name="Магистратура" value="Магистратура"> Магистратура<br>
-        <input type="checkbox" name="Аспирантура" value="Аспирантура"> Аспирантура<br>
-        Общаетесь ли вы сейчас с научным руководителем:<br>
-        <input type="radio" name="keep_contact" value="yes"> Да, он и сейчас мой научный руководитель<br>
-        <input type="radio" name="keep_contact" value="yes,sure"> Да, мы продолжаем научную деятельность даже после моего выпуска<br>
-        <input type="radio" name="keep_contact" value="no"> Нет<br>
-        Годы вашего сотруднечества:<br>
-        <input type="text" class="form-control" placeholder="XXXX-XXXX">
+          <legend>Информация о преподавателе</legend>
+          Фамилия:<br>
+          <input type="text" class="form-control" placeholder="${familyName}">
+          Имя:<br>
+          <input type="text" class="form-control" placeholder="${givenName}">
+          Отчество:<br>
+          <input type="text" class="form-control" placeholder="${middleName}">
+          Период времени, который данный преподаватель был Вашим научным руководителем:<br>
+          <input type="checkbox" name="Бакалавриат" value="Бакалавриат"> Бакалавриат<br>
+          <input type="checkbox" name="Магистратура" value="Магистратура"> Магистратура<br>
+          <input type="checkbox" name="Аспирантура" value="Аспирантура"> Аспирантура<br>
+          Общаетесь ли вы сейчас с научным руководителем:<br>
+          <input type="radio" name="keep_contact" value="yes"> Да, он и сейчас мой научный руководитель<br>
+          <input type="radio" name="keep_contact" value="yes,sure"> Да, мы продолжаем научную деятельность даже после моего выпуска<br>
+          <input type="radio" name="keep_contact" value="no"> Нет<br>
+          Годы вашего сотруднечества:<br>
+          <input type="text" class="form-control" placeholder="XXXX-XXXX">
       </fieldset>
 
 
@@ -127,7 +131,7 @@
 	</textarea>
       </fieldset>
       <div class="container">
-      <button type="submit" class="btn btn-default">Submit</button>
+        <button type="submit" class="btn btn-default">Submit</button>
       </div>
     </form>
   </div>

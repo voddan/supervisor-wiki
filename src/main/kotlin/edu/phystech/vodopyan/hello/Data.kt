@@ -86,11 +86,15 @@ data class Laboratory(
         val wikimipt: URL?)
 
 data class Supervisor(
-        val name: String,
+        val id: Int,
+        val familyName: String,
+        val givenName: String,
+        val middleName: String,
         @NameOnly val laboratories: List<Laboratory>,
         val wikimipt: URL?,
         val photo: URL?) {
 
+    val name = "$familyName $givenName $middleName"
     val webname: String = name.toLowerCase().map { ch -> transliteration[ch] ?: ch  }.joinToString(separator = "")
 
     val comments = DB.getComments(webname)
@@ -126,32 +130,38 @@ object Data {
 
 
     val supervisorsList = listOf(
-            Supervisor("Воронцов Константин Вячеславович",
+            Supervisor(0,
+                    "Воронцов", "Константин", "Вячеславович",
                     listOf(laboratories["Интеллектуальные системы"]!!),
                     URL("http://wikimipt.org/wiki/%D0%92%D0%BE%D1%80%D0%BE%D0%BD%D1%86%D0%BE%D0%B2_%D0%9A%D0%BE%D0%BD%D1%81%D1%82%D0%B0%D0%BD%D1%82%D0%B8%D0%BD_%D0%92%D1%8F%D1%87%D0%B5%D1%81%D0%BB%D0%B0%D0%B2%D0%BE%D0%B2%D0%B8%D1%87"),
                     URL("http://wikimipt.org/images/thumb/5/56/%D0%92%D0%BE%D1%80%D0%BE%D0%BD%D1%86%D0%BE%D0%B2_%D0%9A%D0%BE%D0%BD%D1%81%D1%82%D0%B0%D0%BD%D1%82%D0%B8%D0%BD_%D0%92%D1%8F%D1%87%D0%B5%D1%81%D0%BB%D0%B0%D0%B2%D0%BE%D0%B2%D0%B8%D1%87.jpeg/266px-%D0%92%D0%BE%D1%80%D0%BE%D0%BD%D1%86%D0%BE%D0%B2_%D0%9A%D0%BE%D0%BD%D1%81%D1%82%D0%B0%D0%BD%D1%82%D0%B8%D0%BD_%D0%92%D1%8F%D1%87%D0%B5%D1%81%D0%BB%D0%B0%D0%B2%D0%BE%D0%B2%D0%B8%D1%87.jpeg")),
 
-            Supervisor("Спокойный Владимир Григорьевич",
+            Supervisor(1,
+                    "Спокойный", "Владимир", "Григорьевич",
                     listOf(laboratories["Кафедра проблем передачи информации и анализа данных"]!!),
                     URL("http://faculty.skoltech.ru/people/vladimirspokoiny"),
                     URL("http://www.skoltech.ru/app/data/uploads/sites/19/2016/07/vladimirspokoiny_avatar_1467806260.jpg")),
 
-            Supervisor("Чехович Юрий Викторович",
+            Supervisor(2,
+                    "Чехович", "Юрий", "Викторович",
                     listOf(laboratories["Интеллектуальные системы"]!!),
                     URL("http://www.machinelearning.ru/wiki/index.php?title=%D0%A3%D1%87%D0%B0%D1%81%D1%82%D0%BD%D0%B8%D0%BA:Yury_Chekhovich"),
                     URL("http://www.machinelearning.ru/wiki/images/thumb/8/80/Chehovich.JPG/484px-Chehovich.JPG")),
 
-            Supervisor("Лунев Денис Владимирович",
+            Supervisor(3,
+                    "Лунев", "Денис", "Владимирович",
                     listOf(laboratories["Теоретическая и прикладная информатика"]!!),
                     URL("http://wikimipt.org/wiki/%D0%9B%D1%83%D0%BD%D1%91%D0%B2_%D0%94%D0%B5%D0%BD%D0%B8%D1%81_%D0%92%D0%BB%D0%B0%D0%B4%D0%B8%D0%BC%D0%B8%D1%80%D0%BE%D0%B2%D0%B8%D1%87"),
                     URL("http://wikimipt.org/images/0/08/%D0%9B%D1%83%D0%BD%D1%91%D0%B2_%D0%94%D0%B5%D0%BD%D0%B8%D1%81_%D0%92%D0%BB%D0%B0%D0%B4%D0%B8%D0%BC%D0%B8%D1%80%D0%BE%D0%B2%D0%B8%D1%87.jpeg")),
 
-            Supervisor("Вадим Викторович Стрижов",
+            Supervisor(4,
+                    "Вадим", "Викторович", "Стрижов",
                     listOf(laboratories["Интеллектуальные системы"]!!),
                     URL("http://www.machinelearning.ru/wiki/index.php?title=%D0%A3%D1%87%D0%B0%D1%81%D1%82%D0%BD%D0%B8%D0%BA:Strijov"),
                     URL("http://www.machinelearning.ru/wiki/images/c/c6/Strijov.jpg")),
 
-            Supervisor("Максимов Юрий Владимирович",
+            Supervisor(5,
+                    "Максимов", "Юрий", "Владимирович",
                     listOf(laboratories["Кафедра проблем передачи информации и анализа данных"]!!),
                     URL("http://faculty.skoltech.ru/people/yurymaximov"),
                     URL("http://www.skoltech.ru/app/data/uploads/sites/19/2016/07/yurymaximov_avatar_1467559189.jpg"))

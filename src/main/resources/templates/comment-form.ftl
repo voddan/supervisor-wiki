@@ -21,10 +21,10 @@
         <legend>Информация о студенте</legend>
         <div>
         Фамилия:<br>
-        <input type="text" class="form-control" placeholder="Фамилия">
+        <input name="studsurname" type="text" class="form-control" placeholder="Фамилия">
         </div>
           Имя:<br>
-        <input type="text" class="form-control" placeholder="Имя">
+        <input name="studname" type="text" class="form-control" placeholder="Имя">
         Текущий курс обучения:<br>
         <!--<div class="btn-group">-->
           <!--<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
@@ -48,7 +48,7 @@
             <!--<li><a href="#">Выпускник аспирантуры</a></li>-->
           <!--</ul>-->
         <!--</div>-->
-        <select name="year">
+        <select name="current_degree">
           <option value="Введите год обучения">Введите год обучения</option>
           <option value="1 год бакалавр">1 год бакалавр</option>
           <option value="2 год бакалавр">2 год бакалавр</option>
@@ -65,51 +65,52 @@
         </select>
         <br>
         Ваша базовая кафедра (специализация) на момент работы с научным руководителем:<br>
-        <input type="text" class="form-control" placeholder="ChairName">
+        <input name="basechair" type="text" class="form-control" placeholder="ChairName">
         Средний балл зачетки/диплома (из 10):<br>
-        <input type="number" name="studname" value="" step=0.1><br>
+        <input name="grade" type="number" value="" step=0.1><br>
         VK:<br>
-        <input type="text" class="form-control" placeholder="vk.com/...">
+        <input name="vk" type="text" class="form-control" placeholder="vk.com/...">
         e-mail:<br>
-        <input type="text" class="form-control" placeholder="name@domain.com">
+        <input name="email" type="text" class="form-control" placeholder="name@domain.com">
         Альтернативный способ связи:<br>
-        <input type="text" class="form-control" placeholder="smth">
+        <input name="other_contacts" type="text" class="form-control" placeholder="smth">
       </fieldset>
 
 
       <fieldset>
           <legend>Информация о преподавателе</legend>
-          Фамилия:<br>
-          <input type="text" class="form-control" placeholder="${familyName}">
-          Имя:<br>
-          <input type="text" class="form-control" placeholder="${givenName}">
-          Отчество:<br>
-          <input type="text" class="form-control" placeholder="${middleName}">
+          <h3>${name}</h3><br><br>
+          <#--Фамилия:<br>-->
+          <#--<input name="supervisor_surname" type="text" class="form-control" placeholder="${familyName}">-->
+          <#--Имя:<br>-->
+          <#--<input name="supervisor_name" type="text" class="form-control" placeholder="${givenName}">-->
+          <#--Отчество:<br>-->
+          <#--<input name="supervisor_fathersname"type="text" class="form-control" placeholder="${middleName}">-->
           Период времени, который данный преподаватель был Вашим научным руководителем:<br>
-          <input type="checkbox" name="Бакалавриат" value="Бакалавриат"> Бакалавриат<br>
-          <input type="checkbox" name="Магистратура" value="Магистратура"> Магистратура<br>
-          <input type="checkbox" name="Аспирантура" value="Аспирантура"> Аспирантура<br>
+          <input name="bachelor" type="checkbox" value="Бакалавриат"> Бакалавриат<br>
+          <input name="master" type="checkbox" value="Магистратура"> Магистратура<br>
+          <input name="phd" type="checkbox"value="Аспирантура"> Аспирантура<br>
           Общаетесь ли вы сейчас с научным руководителем:<br>
           <input type="radio" name="keep_contact" value="yes"> Да, он и сейчас мой научный руководитель<br>
           <input type="radio" name="keep_contact" value="yes,sure"> Да, мы продолжаем научную деятельность даже после моего выпуска<br>
           <input type="radio" name="keep_contact" value="no"> Нет<br>
           Годы вашего сотруднечества:<br>
-          <input type="text" class="form-control" placeholder="XXXX-XXXX">
+          <input name="years" type="text" class="form-control" placeholder="XXXX-XXXX">
       </fieldset>
 
 
       <fieldset>
         <legend>Отзыв</legend>
         Области науки, в которых данный ученй специализируется:<br>
-        <input type="text" class="form-control" placeholder="Math&Physics">
+        <input name="areas" type="text" class="form-control" placeholder="Math&Physics">
         Тема Вашей работы с данным научным руководителем:<br>
-        <input type="text" class="form-control" placeholder="Topic">
+        <input name="topic" type="text" class="form-control" placeholder="Topic">
         Почему Вы выбрали этого научного руководителя:<br>
         <textarea name="motivation" rows="5" cols="80">
 
 	</textarea><br>
         Сколько времени вам уделял ваш научный руководитель и как вы его использовали:<br>
-        <textarea name="time" rows="5" cols="80">
+        <textarea name="timing" rows="5" cols="80">
 
 	</textarea><br>
         Как хорошо развита школа у руководителя (количество текущих студентов-бакалавров и магистров, а так же аспирантов, взаимодействие между ними):<br>
@@ -118,7 +119,7 @@
 	</textarea><br>
 
         Как Вам помогал этот научный руководитель попасть на школы, конференции, стажировки (на сколько был заинтересован Вашим становлением как ученого):<br>
-        <textarea name="help" rows="5" cols="80">
+        <textarea name="promotion" rows="5" cols="80">
 
 	</textarea><br>
         На сколько хорошо развита сеть внешних контактов у данного ученого и как она вам помогла:<br>
@@ -126,7 +127,7 @@
 
 	</textarea><br>
         Ваши комментарии:<br>
-        <textarea name="comments" rows="5" cols="80">
+        <textarea name="other" rows="5" cols="80">
 
 	</textarea>
       </fieldset>

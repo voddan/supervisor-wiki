@@ -100,6 +100,19 @@ data class Supervisor(
     val comments = DB.getComments(webname)
 }
 
+data class Comment(
+        val id: Int, val supervisor_id: Int,
+        val supervisor_name: String, val supervisor_surname: String, val supervisor_fathersname: String,
+        val basechair: String, val areas: String, val topic: String,
+        val motivation: String, val timing: String, val school: String,
+        val promotion: String, val networking: String, val other: String,
+        val studname: String, val studsurname: String, val current_degree: String, val grade: String,
+        val vk: String, val email: String, val other_contacts: String,
+        val years: String, val bachelor: Int, val master: Int, val phd: Int) {
+
+    val degree = mapOf("бакалавр" to bachelor, "магистр" to master, "аспирант" to phd)
+            .filterValues { it != 0 }.keys.joinToString()
+}
 
 
 object Data {

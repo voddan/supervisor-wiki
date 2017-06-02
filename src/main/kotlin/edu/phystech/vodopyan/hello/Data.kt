@@ -96,8 +96,6 @@ data class Supervisor(
 
     val name = "$familyName $givenName $middleName"
     val webname: String = name.toLowerCase().map { ch -> transliteration[ch] ?: ch  }.joinToString(separator = "")
-
-    val comments = DB.getComments(webname)
 }
 
 data class Comment(

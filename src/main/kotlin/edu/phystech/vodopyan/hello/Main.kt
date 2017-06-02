@@ -212,7 +212,7 @@ fun Application.module() {
 }
 
 suspend fun ApplicationCall.respondFreeMarker(ftl: String, model: Any = mapOf<String, Any>()) {
-    val hash =  (ftl + model.toString() + DB.hashCode() + DEBUG).hashCode().toString()
+    val hash =  (ftl + model.toString() + DEBUG).hashCode().toString()
     respond(FreeMarkerContent(ftl, model, hash, html_utf8))
 
     println(hash)
